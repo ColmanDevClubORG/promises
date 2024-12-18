@@ -24,12 +24,15 @@ function saveData(data) {
     }, 1000);
   });
 }
+async function init() {
+  try {
+    const data = await getData();
+    const processedData = await processData(data);
+    const savedData = await saveData(processedData);
+    console.log('All steps completed successfully:', savedData);
+  } catch (err) {
+    console.error(err);
+  }
+}
 
-// Promise chaining
-getData()
-  .then((data) => processData(data))
-  .then((processedData) => saveData(processedData))
-  .then((savedData) =>
-    console.log('All steps completed successfully:', savedData)
-  )
-  .catch((err) => console.error(err));
+init();
